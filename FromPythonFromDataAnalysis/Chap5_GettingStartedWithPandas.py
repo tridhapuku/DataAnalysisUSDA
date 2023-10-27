@@ -244,17 +244,24 @@ def Try11_6ResamplingAndFreq():
                           index=pd.date_range("2023-10-23 00:00:01",periods=200,freq='1s'),
                           columns=["Colorado","Texas","new York", "Ohio"])
     
-    ts_day = pd.date_range("2023-10-23 00:00:01","2023-10-23 00:00:45",
+    ts_day = pd.date_range("2023-10-23 00:00:01","2023-10-23 00:00:10",
                            freq='1s')
     print(ts_day)
-    frame2_dropped = frame2.drop(ts_day[1])
-    print(frame2_dropped)
+    frame2_dropped = frame2.drop(ts_day[0])
+    print("frame2_dropped")
+    print(frame2_dropped.head(2))
+    print(len(frame2_dropped))
+    #Upsampling for more points
+    frame3 = frame2_dropped.resample("1s").asfreq()
+    print("frame3")
+    print(frame3.head(2))
+    print(len(frame3))
+    frame4 = frame2_dropped.resample("1s").ffill(limit=1)
+    print(frame4.head(2))
     return
     print(frame2)
 
-    #Upsampling for more points
-    frame3 = frame2.resample("1s").asfreq()
-    print(frame3)
+    
     # frame2_Dropped = frame2.drop([0,1,2], axis=0)
     frame2_Dropped = frame2.drop(index=[0,1])
     print(frame2_Dropped.head())
